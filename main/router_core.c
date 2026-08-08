@@ -46,6 +46,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <ctype.h>
+#include <stdatomic.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -144,7 +145,6 @@ static TaskHandle_t s_stats_task = NULL;
 static bool s_initialized = false;
 static bool s_wifi_started = false;
 
-static uint32_t s_last_reconnect_ms = 0;
 static uint32_t s_reconnect_delay_ms = STA_RECONNECT_INITIAL_MS;
 
 
