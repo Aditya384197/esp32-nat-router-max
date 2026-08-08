@@ -2,18 +2,17 @@
 # ESP32 NAT ROUTER
 # ESP-IDF v5.1.2
 # ESP32 CLASSIC
-# STABLE BASE CONFIGURATION
+# STABLE / PERFORMANCE CONFIGURATION
 # ============================================================
 
 
 # ============================================================
-# CPU / FREERTOS
+# TARGET / CPU
 # ============================================================
 
 CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ=240
 
 CONFIG_FREERTOS_UNICORE=n
-
 CONFIG_FREERTOS_HZ=1000
 
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
@@ -24,21 +23,22 @@ CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
 # ============================================================
 
 CONFIG_ESP_TASK_WDT_EN=y
-
 CONFIG_ESP_INT_WDT=y
 
 
 # ============================================================
-# WIFI PERFORMANCE
+# WIFI CORE PERFORMANCE
 # ============================================================
 
 CONFIG_ESP_WIFI_IRAM_OPT=y
-
 CONFIG_ESP_WIFI_RX_IRAM_OPT=y
+
+CONFIG_ESP_WIFI_AMPDU_TX_ENABLED=y
+CONFIG_ESP_WIFI_AMPDU_RX_ENABLED=y
 
 
 # ============================================================
-# WIFI BUFFERS
+# WIFI RX/TX BUFFERS
 # ============================================================
 
 CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=16
@@ -49,16 +49,9 @@ CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=64
 
 
 # ============================================================
-# WIFI AMPDU
-# ============================================================
-
-CONFIG_ESP_WIFI_AMPDU_TX_ENABLED=y
-
-CONFIG_ESP_WIFI_AMPDU_RX_ENABLED=y
-
-
-# ============================================================
 # WIFI NVS
+#
+# Router configuration is handled by our own NVS namespace.
 # ============================================================
 
 CONFIG_ESP_WIFI_NVS_ENABLED=n
@@ -73,6 +66,8 @@ CONFIG_LWIP_IP_FORWARD=y
 CONFIG_LWIP_IPV4_NAPT=y
 
 CONFIG_LWIP_IPV4_NAPT_ENABLE_DEFAULT=y
+
+CONFIG_LWIP_NETIF_STATUS_CALLBACK=y
 
 
 # ============================================================
@@ -117,7 +112,7 @@ CONFIG_LWIP_TCPIP_TASK_AFFINITY_CPU1=y
 
 
 # ============================================================
-# LWIP IRAM
+# LWIP IRAM OPTIMIZATION
 # ============================================================
 
 CONFIG_LWIP_EXTRA_IRAM_OPTIMIZATION=y
@@ -134,11 +129,16 @@ CONFIG_ESP_PHY_INIT_DATA_IN_PARTITION=y
 
 # ============================================================
 # FLASH
+#
+# ESP32 CLASSIC
+# 4 MB FLASH
+# DIO
+# 40 MHz
 # ============================================================
 
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 
-CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
 
 CONFIG_ESPTOOLPY_FLASHFREQ_40M=y
 
